@@ -903,10 +903,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           return;
         }
 
+   function getParam(p){return new URLSearchParams(window.location.search).get(p)||'';}
         var payload = {
           nome: nome, whatsapp: whatsapp, email: email,
           perfil: perfil.value, momento: momento.value, investimento: investimento,
-          origem: 'landing-page-index'
+          origem: 'landing-page-index',
+          utm_source:getParam('utm_source'),
+          utm_medium:getParam('utm_medium'),
+          utm_campaign:getParam('utm_campaign'),
+          utm_content:getParam('utm_content'),
+          utm_term:getParam('utm_term')
         };
 
         btnSubmit.classList.add('loading');
