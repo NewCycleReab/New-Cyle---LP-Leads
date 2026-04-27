@@ -14,6 +14,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="description" content="Maior fabricante nacional de esteiras neurofuncionais e equipamentos de reabilitação. Mais de 25 anos, 500+ equipamentos em clínicas e hospitais do Brasil.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -903,16 +907,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           return;
         }
 
-   function getParam(p){return new URLSearchParams(window.location.search).get(p)||'';}
         var payload = {
           nome: nome, whatsapp: whatsapp, email: email,
           perfil: perfil.value, momento: momento.value, investimento: investimento,
-          origem: 'landing-page-index',
-          utm_source:getParam('utm_source'),
-          utm_medium:getParam('utm_medium'),
-          utm_campaign:getParam('utm_campaign'),
-          utm_content:getParam('utm_content'),
-          utm_term:getParam('utm_term')
+          origem: 'landing-page-index'
         };
 
         btnSubmit.classList.add('loading');
