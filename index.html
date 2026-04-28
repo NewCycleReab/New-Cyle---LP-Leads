@@ -355,7 +355,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-content">
       <p class="hero-tag">New Cycle — Equipamentos de Reabilitação</p>
       <h1>Equipamentos para Clínicas de Fisioterapia: Aumente a Recuperação dos Seus Pacientes</h1>
-      <p class="hero-sub">Desenvolvidos para potencializar seus protocolos e acelerar a recuperação de cada paciente.</p>
+      <p class="hero-sub">Esteira Kids, Esteira Ergométrica, Simulador de Escada, Gaiola de Habilidades Completa, Bicicleta Horizontal e muitos outros equipamentos para acelerar a recuperação de cada paciente.</p>
       <a href="#formulario" class="btn-cta">Solicitar proposta exclusiva →</a>
       <p class="hero-note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Sem compromisso · Retorno em até 24h · Consultoria&nbsp;gratuita</p>
     </div>
@@ -870,6 +870,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     }
 
+    /* ── UTM CAPTURE (querystring only) ── */
+    function getUTMs() {
+      var params = new URLSearchParams(window.location.search);
+      return {
+        utm_source:   params.get('utm_source')   || '',
+        utm_medium:   params.get('utm_medium')   || '',
+        utm_campaign: params.get('utm_campaign') || '',
+        utm_content:  params.get('utm_content')  || '',
+        utm_term:     params.get('utm_term')     || ''
+      };
+    }
+
     /* ── FORM SUBMIT ── */
     var form      = document.getElementById('leadForm');
     var btnSubmit = document.getElementById('btnSubmit');
@@ -907,10 +919,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           return;
         }
 
+        var utms = getUTMs();
         var payload = {
           nome: nome, whatsapp: whatsapp, email: email,
           perfil: perfil.value, momento: momento.value, investimento: investimento,
-          origem: 'landing-page-index'
+          origem: 'landing-page-index',
+          utm_source:   utms.utm_source,
+          utm_medium:   utms.utm_medium,
+          utm_campaign: utms.utm_campaign,
+          utm_content:  utms.utm_content,
+          utm_term:     utms.utm_term
         };
 
         btnSubmit.classList.add('loading');

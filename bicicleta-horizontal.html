@@ -802,6 +802,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     }
 
+    /* ── UTM CAPTURE (querystring only) ── */
+    function getUTMs() {
+      var params = new URLSearchParams(window.location.search);
+      return {
+        utm_source:   params.get('utm_source')   || '',
+        utm_medium:   params.get('utm_medium')   || '',
+        utm_campaign: params.get('utm_campaign') || '',
+        utm_content:  params.get('utm_content')  || '',
+        utm_term:     params.get('utm_term')     || ''
+      };
+    }
+
     /* ── FORM SUBMIT ── */
     var form      = document.getElementById('leadForm');
     var btnSubmit = document.getElementById('btnSubmit');
@@ -839,10 +851,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           return;
         }
 
+        var utms = getUTMs();
         var payload = {
           nome: nome, whatsapp: whatsapp, email: email,
           perfil: perfil.value, momento: momento.value, investimento: investimento,
-          origem: 'lp-bicicleta-horizontal'
+          origem: 'lp-bicicleta-horizontal',
+          utm_source:   utms.utm_source,
+          utm_medium:   utms.utm_medium,
+          utm_campaign: utms.utm_campaign,
+          utm_content:  utms.utm_content,
+          utm_term:     utms.utm_term
         };
 
         btnSubmit.classList.add('loading');
