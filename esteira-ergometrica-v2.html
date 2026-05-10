@@ -68,7 +68,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       border-radius: 2px; border: none; cursor: pointer; transition: all 0.3s ease;
     }
     .btn-cta:hover { background: var(--teal-dark); box-shadow: 0 4px 20px var(--shadow-teal); transform: translateY(-1px); }
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease-out, transform 0.4s ease-out; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ── BOTÃO HERO WHATSAPP ── */
@@ -160,8 +160,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .hero h1 { font-size: 58px; color: #FFFFFF; margin-bottom: 24px; line-height: 1.1; text-wrap: balance; text-shadow: 0 2px 18px rgba(0,0,0,0.60); }
     .hero-sub { font-size: 19px; color: rgba(255,255,255,0.88); max-width: 620px; margin: 0 auto 40px; line-height: 1.65; text-wrap: balance; text-shadow: 0 1px 12px rgba(0,0,0,0.50); }
     .hero-note { font-size: 13px; color: var(--text-light2); margin-top: 20px; }
-    @media (max-width: 768px) { .hero-content { padding: 120px 24px 80px; } .hero h1 { font-size: 30px; } .hero-sub { font-size: 16px; } .btn-cta { font-size: 12px; letter-spacing: 0.8px; padding: 16px 24px; } }
-    @media (max-width: 480px) { .hero h1 { font-size: 26px; } }
+    @media (max-width: 768px) { .hero-content { padding: 120px 24px 80px; } .hero h1 { font-size: 27px; } .hero-sub { font-size: 15px; } .btn-cta { font-size: 12px; letter-spacing: 0.8px; padding: 16px 24px; } .btn-cta-wpp { font-size: 11px; letter-spacing: 0.5px; padding: 14px 20px; gap: 7px; } .btn-cta-wpp svg { width: 16px; height: 16px; } }
+    @media (max-width: 480px) { .hero h1 { font-size: 22px; } }
 
     /* ── TRANSFORMAÇÃO ── */
     .s-transform { background: var(--bg-light); padding: 100px 0; }
@@ -350,6 +350,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .footer-contact p { color: var(--text-muted) !important; }
     .footer-bottom { color: var(--text-muted) !important; border-top-color: var(--border-l) !important; }
 
+    /* ── AUTORIDADE ── */
+    .s-autoridade { background: #EEF5FC; padding: 100px 0; }
+    .s-autoridade h2 { color: var(--text-dark); font-size: 36px; margin-bottom: 12px; }
+    .s-autoridade .section-sub { color: var(--text-muted); }
+    .stats-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 32px; margin-bottom: 48px; }
+    .stat-item { text-align: center; }
+    .stat-number { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 48px; background: linear-gradient(135deg, var(--azul), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; margin-bottom: 4px; }
+    .stat-suffix { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; color: var(--text-muted); }
+    .stat-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--azul); margin: 8px 0 6px; }
+    .stat-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2,1fr); gap: 24px; } .stat-number { font-size: 38px; } .stat-item:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+
     /* ── PRODUTO INTRO ── */
     .s-produto-intro { background: var(--bg-white); padding: 80px 0; border-bottom: 1px solid var(--border-l); }
     .produto-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
@@ -439,97 +452,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
-      <p class="hero-tag">ESTEIRA NEUROFUNCIONAL · NEW CYCLE</p>
-      <h1>Esteira Neurofuncional N8: Reabilite a Marcha dos Seus Pacientes com Mais Precisão</h1>
-      <p class="hero-sub">Documente a evolução e ajuste protocolos com precisão, do primeiro passo ao resultado final.</p>
+      <p class="hero-tag" style="white-space:nowrap; font-size:10px; letter-spacing:2px;">ESTEIRA NEUROFUNCIONAL · NEW CYCLE</p>
+      <h1>Esteira Neurofuncional: Eleve sua clínica ao nível dos grandes centros de reabilitação do Brasil.</h1>
+      <p class="hero-sub">Amplie seus protocolos, ticket médio e autoridade regional. Usada por Pediasuit, Casa Mirim, Hospital Pequeno Príncipe e mais de 500 clínicas no país.</p>
       <a href="#form-produto" class="btn-cta-wpp">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.528 5.855L0 24l6.337-1.508A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.76.895.953-3.668-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
         Cadastrar e Falar no WhatsApp
       </a>
       <p class="hero-note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Sem compromisso · Retorno em até 24h · Consultoria gratuita</p>
-    </div>
-  </section>
-
-  <!-- FORMULÁRIO (INÍCIO DA PÁGINA — VARIANTE V2) -->
-  <section class="s-form s-form-topo" id="form-produto">
-    <div class="container text-center">
-      <span class="badge reveal">PROPOSTA PERSONALIZADA</span>
-      <h2 class="reveal" style="font-size:28px; line-height:1.25;">Solicite sua proposta exclusiva da Esteira Ergométrica N8 para sua Clínica</h2>
-      <div class="urgencia-box reveal">
-        <span class="urgencia-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
-        <p>Em 15 segundos você se cadastra e fala no WhatsApp.</p>
-      </div>
-
-      <div class="form-card reveal">
-        <form id="leadForm" novalidate autocomplete="on">
-
-          <div class="form-group">
-            <label for="nome">Nome completo</label>
-            <input type="text" id="nome" name="nome" class="form-input" placeholder="Seu nome completo" autocomplete="name" required>
-          </div>
-
-          <div class="form-group">
-            <label for="whatsapp">WhatsApp com DDD</label>
-            <input type="tel" id="whatsapp" name="whatsapp" class="form-input" placeholder="(17) 99999-9999" autocomplete="tel" required>
-          </div>
-
-          <div class="form-group">
-            <label for="email">E-mail profissional</label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="seu@email.com.br" autocomplete="email" required>
-          </div>
-
-          <div class="radio-group">
-            <div class="radio-group-title">Você é dono ou representante de uma clínica?</div>
-            <label class="radio-option">
-              <input type="radio" name="perfil" value="dono" required>
-              <span class="radio-custom"></span>
-              <span>Sim, sou dono(a) da clínica</span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="perfil" value="representante">
-              <span class="radio-custom"></span>
-              <span>Sim, sou representante / gestor(a)</span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="perfil" value="autonomo">
-              <span class="radio-custom"></span>
-              <span>Não, sou fisioterapeuta autônomo(a)</span>
-            </label>
-          </div>
-
-          <div class="radio-group">
-            <div class="radio-group-title">Qual é o seu momento atual para modernizar sua clínica?</div>
-            <label class="radio-option">
-              <input type="radio" name="momento" value="urgente" required>
-              <span class="radio-custom"></span>
-              <span>Urgente — próximos 30 dias</span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="momento" value="curto">
-              <span class="radio-custom"></span>
-              <span>Curto prazo — 1 a 3 meses</span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="momento" value="medio">
-              <span class="radio-custom"></span>
-              <span>Médio prazo — mais de 3 meses</span>
-            </label>
-          </div>
-
-          <div class="form-group">
-            <label for="investimento">Qual a estimativa de investimento para elevar o nível dos seus atendimentos?</label>
-            <textarea id="investimento" name="investimento" class="form-input" placeholder="Descreva sua estimativa de investimento..." rows="3" required style="resize:vertical; min-height:90px;"></textarea>
-          </div>
-
-          <button type="submit" class="btn-submit" id="btnSubmit">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.528 5.855L0 24l6.337-1.508A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.76.895.953-3.668-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
-            CADASTRAR E FALAR NO WHATSAPP
-          </button>
-          <div class="form-error" id="formError" style="display:none;"></div>
-
-        </form>
-        <p class="form-disclaimer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Seus dados estão protegidos. Sem spam. Retorno em até 24 horas pela nossa equipe comercial.</p>
-      </div>
     </div>
   </section>
 
@@ -550,6 +480,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- AUTORIDADE -->
+  <section class="s-autoridade">
+    <div class="container text-center">
+      <span class="badge reveal">AUTORIDADE</span>
+      <h2 class="reveal">Números que constroem confiança</h2>
+      <p class="section-sub reveal">Mais de duas décadas fabricando os melhores equipamentos de reabilitação do Brasil.</p>
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-number"><span class="count-up" data-target="45" data-prefix="+">0</span></div>
+          <div class="stat-suffix">anos</div>
+          <div class="stat-label">LEGADO</div>
+          <div class="stat-desc">de atuação no mercado FITNESS e de REABILITAÇÃO</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number"><span class="count-up" data-target="500" data-prefix="+">0</span></div>
+          <div class="stat-suffix">equipamentos</div>
+          <div class="stat-label">ESCALA</div>
+          <div class="stat-desc">Em clínicas e hospitais distribuídos por todo o continente americano</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number"><span class="count-up" data-target="300" data-prefix="+">0</span></div>
+          <div class="stat-suffix">colaboradores</div>
+          <div class="stat-label">ESTRUTURA</div>
+          <div class="stat-desc">Mais de 300 colaboradores diretos</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number"><span class="count-up" data-target="92000" data-prefix="+">0</span></div>
+          <div class="stat-suffix">m²</div>
+          <div class="stat-label">CAPACIDADE</div>
+          <div class="stat-desc">de terreno industrial com mais de 23.000 m² de área construída entre filiais</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number"><span class="count-up" data-target="100">0</span></div>
+          <div class="stat-suffix">% nacional</div>
+          <div class="stat-label">CONFIANÇA</div>
+          <div class="stat-desc">Fabricação e peças de reposição inteiramente brasileiras</div>
+        </div>
+      </div>
+      <a href="#form-produto" class="btn-cta-wpp reveal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.528 5.855L0 24l6.337-1.508A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.76.895.953-3.668-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+        Quero aumentar o nível da minha clínica
+      </a>
     </div>
   </section>
 
@@ -596,7 +571,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <a href="#form-produto" class="btn-cta-wpp reveal">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.528 5.855L0 24l6.337-1.508A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.76.895.953-3.668-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
-        Cadastrar e Falar no WhatsApp
+        Quero aumentar o nível da minha clínica
       </a>
     </div>
   </section>
@@ -620,7 +595,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p style="font-size:12px; color:var(--text-muted); margin-top:20px; font-style:italic;">Consulte sempre um profissional qualificado para orientação adequada.</p>
       <a href="#form-produto" class="btn-cta-wpp reveal">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.528 5.855L0 24l6.337-1.508A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.76.895.953-3.668-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
-        Cadastrar e Falar no WhatsApp
+        Quero aumentar o nível da minha clínica
       </a>
     </div>
   </section>
@@ -683,7 +658,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <a href="#form-produto" class="btn-cta-wpp reveal">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.528 5.855L0 24l6.337-1.508A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.76.895.953-3.668-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
-        Cadastrar e Falar no WhatsApp
+        Quero aumentar o nível da minha clínica
       </a>
     </div>
   </section>
@@ -814,6 +789,80 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- FORMULÁRIO — ÚLTIMA DOBRA -->
+  <section class="s-form" id="form-produto">
+    <div class="container text-center">
+      <span class="badge reveal">PROPOSTA PERSONALIZADA</span>
+      <h2 class="reveal" style="font-size:28px; line-height:1.25;">Solicite sua proposta exclusiva da Esteira Ergométrica N8 para sua Clínica</h2>
+      <div class="urgencia-box reveal">
+        <span class="urgencia-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+        <p>Em 15 segundos você se cadastra e fala no WhatsApp.</p>
+      </div>
+      <div class="form-card reveal">
+        <form id="leadForm" novalidate autocomplete="on">
+          <div class="form-group">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" class="form-input" placeholder="Seu nome completo" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="whatsapp">WhatsApp com DDD</label>
+            <input type="tel" id="whatsapp" name="whatsapp" class="form-input" placeholder="(17) 99999-9999" autocomplete="tel" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail profissional</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="seu@email.com.br" autocomplete="email" required>
+          </div>
+          <div class="radio-group">
+            <div class="radio-group-title">Você é dono ou representante de uma clínica?</div>
+            <label class="radio-option">
+              <input type="radio" name="perfil" value="dono" required>
+              <span class="radio-custom"></span>
+              <span>Sim, sou dono(a) da clínica</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="perfil" value="representante">
+              <span class="radio-custom"></span>
+              <span>Sim, sou representante / gestor(a)</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="perfil" value="autonomo">
+              <span class="radio-custom"></span>
+              <span>Não, sou fisioterapeuta autônomo(a)</span>
+            </label>
+          </div>
+          <div class="radio-group">
+            <div class="radio-group-title">Qual é o seu momento atual para modernizar sua clínica?</div>
+            <label class="radio-option">
+              <input type="radio" name="momento" value="urgente" required>
+              <span class="radio-custom"></span>
+              <span>Urgente — próximos 30 dias</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="momento" value="curto">
+              <span class="radio-custom"></span>
+              <span>Curto prazo — 1 a 3 meses</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="momento" value="medio">
+              <span class="radio-custom"></span>
+              <span>Médio prazo — mais de 3 meses</span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="investimento">Qual a estimativa de investimento para elevar o nível dos seus atendimentos?</label>
+            <textarea id="investimento" name="investimento" class="form-input" placeholder="Descreva sua estimativa de investimento..." rows="3" required style="resize:vertical; min-height:90px;"></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="btnSubmit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.528 5.855L0 24l6.337-1.508A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.368l-.36-.214-3.76.895.953-3.668-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+            CADASTRAR E FALAR NO WHATSAPP
+          </button>
+          <div class="form-error" id="formError" style="display:none;"></div>
+        </form>
+        <p class="form-disclaimer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Seus dados estão protegidos. Sem spam. Retorno em até 24 horas pela nossa equipe comercial.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
@@ -873,7 +922,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       entries.forEach(function(e) {
         if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
     document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); });
 
     /* ── PHONE MASK ── */
@@ -974,6 +1023,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
       });
     }
+
+    /* ── COUNT-UP ANIMAÇÃO ── */
+    function animateCount(el) {
+      var target   = parseInt(el.dataset.target);
+      var prefix   = el.dataset.prefix || '';
+      var duration = 1800;
+      var start    = performance.now();
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+      function step(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var current  = Math.floor(easeOut(progress) * target);
+        el.textContent = prefix + current.toLocaleString('pt-BR');
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = prefix + target.toLocaleString('pt-BR');
+      }
+      requestAnimationFrame(step);
+    }
+    var countObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.count-up').forEach(animateCount);
+          countObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    var statsEl = document.querySelector('.stats-grid');
+    if (statsEl) countObs.observe(statsEl);
 
     /* ── FAQ ACCORDION ── */
     window.toggleFaq = function(header) {
