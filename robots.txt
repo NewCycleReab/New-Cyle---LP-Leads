@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.newcyclereablp.com.br/sitemap.xml
+
+# Bloqueia versões antigas (mantém crawl budget na v4)
+Disallow: /esteira-ergometrica-v2.html
+Disallow: /esteira-ergometrica-v3.html
