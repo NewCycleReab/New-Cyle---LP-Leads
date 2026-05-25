@@ -19,15 +19,28 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); });
 
   /* ── PHONE MASK ── */
+  function normalizePhoneDigits(raw) {
+    var d = (raw || '').replace(/\D/g, '');
+    d = d.replace(/^0+/, '');
+    if (d.length > 11 && d.indexOf('55') === 0) d = d.slice(2);
+    if (d.length > 11) d = d.slice(0, 11);
+    return d;
+  }
+  function formatPhone(digits) {
+    if (digits.length > 10) return '(' + digits.slice(0,2) + ') ' + digits.slice(2,7) + '-' + digits.slice(7,11);
+    if (digits.length > 6)  return '(' + digits.slice(0,2) + ') ' + digits.slice(2,6) + '-' + digits.slice(6);
+    if (digits.length > 2)  return '(' + digits.slice(0,2) + ') ' + digits.slice(2);
+    if (digits.length > 0)  return '(' + digits;
+    return '';
+  }
+  function applyPhoneMask(input) {
+    input.value = formatPhone(normalizePhoneDigits(input.value));
+  }
   document.querySelectorAll('.phone-mask').forEach(function(input) {
-    input.addEventListener('input', function(e) {
-      var v = e.target.value.replace(/\D/g, '');
-      if (v.length > 11) v = v.slice(0, 11);
-      if (v.length > 6)       v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
-      else if (v.length > 2)  v = '(' + v.slice(0,2) + ') ' + v.slice(2);
-      else if (v.length > 0)  v = '(' + v;
-      e.target.value = v;
-    });
+    var handler = function() { applyPhoneMask(input); };
+    ['input', 'change', 'blur'].forEach(function(ev) { input.addEventListener(ev, handler); });
+    input.addEventListener('paste', function() { setTimeout(handler, 0); });
+    setTimeout(handler, 300);
   });
 
   /* ── UTM CAPTURE ── */
@@ -75,15 +88,18 @@ document.addEventListener('DOMContentLoaded', function() {
         formError.style.display = 'block';
         return;
       }
-      if (whatsapp.replace(/\D/g,'').length < 10) {
+      var whatsappDigits = normalizePhoneDigits(whatsapp);
+      if (whatsappDigits.length < 10) {
         formError.textContent = 'Por favor, insira um WhatsApp válido com DDD.';
         formError.style.display = 'block';
         return;
       }
+      var whatsappFormatted = formatPhone(whatsappDigits);
+      var whatsappE164      = '55' + whatsappDigits;
 
       var utms = getUTMs();
       var payload = {
-        nome: nome, whatsapp: whatsapp, email: email,
+        nome: nome, whatsapp: whatsappFormatted, whatsapp_e164: whatsappE164, email: email,
         perfil: perfil.value, momento: momento.value, investimento: investimento,
         origem: form.dataset.origem || 'lp-newcycle-v4',
         utm_source:   utms.utm_source,
