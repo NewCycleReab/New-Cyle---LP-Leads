@@ -76,9 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!qs) return;
     document.querySelectorAll('a[href]').forEach(function(a) {
       var href = a.getAttribute('href');
-      if (!href || /^(https?:|mailto:|tel:|#)/i.test(href)) return; // ignora externos/âncoras
-      if (href.indexOf('.html') === -1) return;                     // só páginas internas
-      a.setAttribute('href', href + (href.indexOf('?') > -1 ? '&' : '?') + qs);
+      if (!href || /^(https?:|mailto:|tel:|javascript:|#)/i.test(href)) return; // externos/âncoras
+      if (href.indexOf('utm_source=') > -1) return;                 // já tem UTM, não duplica
+      var hash = '', hi = href.indexOf('#');
+      if (hi > -1) { hash = href.slice(hi); href = href.slice(0, hi); } // preserva #âncora
+      a.setAttribute('href', href + (href.indexOf('?') > -1 ? '&' : '?') + qs + hash);
     });
   })();
 
@@ -264,6 +266,11 @@ document.addEventListener('DOMContentLoaded', function() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
+        // Guarda nome + equipamento p/ personalizar a mensagem de WhatsApp na página de obrigado
+        try {
+          sessionStorage.setItem('nc_nome', nome);
+          sessionStorage.setItem('nc_equip', equip || '');
+        } catch (e2) {}
         // Roteamento: qualificado dispara Lead (obrigado.html); não-qualificado não dispara nada.
         window.location.href = qualificado ? 'obrigado.html' : 'lead-recebido.html';
       } catch (err2) {
