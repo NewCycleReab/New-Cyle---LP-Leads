@@ -1,1 +1,14 @@
-/    /index-v4.html    200
+/                                /index-v5.html               200
+
+/index-v4.html                   /                            301!
+/index-v4                        /                            301!
+/esteira-ergometrica-v4.html     /esteira-ergometrica-v5      301!
+/esteira-ergometrica-v4          /esteira-ergometrica-v5      301!
+/simulador-escada-v4.html        /simulador-escada-v5         301!
+/simulador-escada-v4             /simulador-escada-v5         301!
+/esteira-kids-v4.html            /esteira-kids-v5             301!
+/esteira-kids-v4                 /esteira-kids-v5             301!
+/bicicleta-horizontal-v4.html    /bicicleta-horizontal-v5    301!
+/bicicleta-horizontal-v4         /bicicleta-horizontal-v5    301!
+/gaiola-habilidades-v4.html      /gaiola-habilidades-v5      301!
+/gaiola-habilidades-v4           /gaiola-habilidades-v5      301!

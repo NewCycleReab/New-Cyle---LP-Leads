@@ -96,10 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var INVEST_LABEL = {
     acima_50k: 'Acima de R$ 50 mil',
     de_30_50k: 'De R$ 30 mil a R$ 50 mil',
-    de_5_30k:  'De R$ 5 mil a R$ 30 mil',
-    abaixo_5k: 'Abaixo de R$ 5 mil'
+    de_5_30k:  'De R$ 5 mil a R$ 30 mil'
   };
-  var INVEST_SCORE = { acima_50k:3, de_30_50k:2, de_5_30k:1, abaixo_5k:0 };
+  var INVEST_SCORE = { acima_50k:3, de_30_50k:2, de_5_30k:1 };
 
   var PERFIL_SCORE = { dono:2, representante:1, autonomo:0 };
 
@@ -169,10 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateStep1() {
       var nome  = (modalForm.querySelector('input[name="nome"]')  || {}).value || '';
       var wpp   = (modalForm.querySelector('input[name="whatsapp"]') || {}).value || '';
-      var email = (modalForm.querySelector('input[name="email"]') || {}).value || '';
-      nome = nome.trim(); email = email.trim();
-      if (!nome || !wpp || !email) return 'Por favor, preencha nome, WhatsApp e e-mail.';
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Por favor, insira um e-mail válido.';
+      nome = nome.trim();
+      if (!nome || !wpp) return 'Por favor, preencha seu nome e WhatsApp.';
       if (normalizePhoneDigits(wpp).length < 10) return 'Por favor, insira um WhatsApp válido com DDD.';
       return '';
     }
@@ -225,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var whatsappDigits   = normalizePhoneDigits(modalForm.querySelector('input[name="whatsapp"]').value);
       var whatsappFmt      = formatPhone(whatsappDigits);
       var whatsappE164     = '55' + whatsappDigits;
-      var email    = modalForm.querySelector('input[name="email"]').value.trim();
 
       var perfil   = perfilEl.value;
       var pacCode  = pacEl.value;
@@ -233,14 +229,12 @@ document.addEventListener('DOMContentLoaded', function() {
       var equip    = equipInput ? equipInput.value : '';
 
       var leadScore   = (PERFIL_SCORE[perfil] || 0) + (PACIENTES_SCORE[pacCode] || 0) + (INVEST_SCORE[invCode] || 0);
-      var qualificado = invCode !== 'abaixo_5k';   // regra v1: só "abaixo de 5 mil" não qualifica
 
       var utms = getUTMs();
       var payload = {
         nome: nome,
         whatsapp: whatsappFmt,
         whatsapp_e164: whatsappE164,
-        email: email,
         perfil: perfil,
         momento: PACIENTES_LABEL[pacCode] || pacCode,        // chave legada do Make (agora = nº de pacientes)
         investimento: INVEST_LABEL[invCode] || invCode,       // chave legada do Make (faixa de investimento)
@@ -248,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
         faixa_investimento: INVEST_LABEL[invCode] || invCode,
         equipamento_interesse: equip,
         lead_score: leadScore,
-        qualificado: qualificado,
+        qualificado: true,
         origem: modalForm.dataset.origem || 'lp-index-v5',
         utm_source:   utms.utm_source,
         utm_medium:   utms.utm_medium,
@@ -259,24 +253,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (btnSubmit) { btnSubmit.classList.add('loading'); btnSubmit.textContent = 'Enviando...'; }
 
+      // Guarda nome + equipamento p/ personalizar a mensagem de WhatsApp na página de obrigado
       try {
-        await fetch(WEBHOOK_URL, {
+        sessionStorage.setItem('nc_nome', nome);
+        sessionStorage.setItem('nc_equip', equip || '');
+      } catch (e2) {}
+
+      // Envia pro Make com keepalive (a requisição completa mesmo após navegar).
+      // BLINDAGEM: se o Make falhar/estiver fora do ar, o lead NUNCA trava — segue sempre pro WhatsApp.
+      try {
+        fetch(WEBHOOK_URL, {
           method: 'POST',
           mode: 'cors',
+          keepalive: true,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        // Guarda nome + equipamento p/ personalizar a mensagem de WhatsApp na página de obrigado
-        try {
-          sessionStorage.setItem('nc_nome', nome);
-          sessionStorage.setItem('nc_equip', equip || '');
-        } catch (e2) {}
-        // Roteamento: qualificado dispara Lead (obrigado.html); não-qualificado não dispara nada.
-        window.location.href = qualificado ? 'obrigado.html' : 'lead-recebido.html';
-      } catch (err2) {
-        showError('Erro ao enviar. Verifique sua conexão e tente novamente.');
-        if (btnSubmit) { btnSubmit.classList.remove('loading'); btnSubmit.innerHTML = BTN_HTML; }
-      }
+      } catch (e3) {}
+
+      window.location.href = 'obrigado.html';
     });
   }
 
