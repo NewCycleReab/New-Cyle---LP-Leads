@@ -121,6 +121,42 @@ document.addEventListener('DOMContentLoaded', function() {
     var DEFAULT_SUB  = modalSub ? modalSub.textContent : '';
     var current      = 0;
 
+    /* ── WhatsApp direto: link oculto (o CLIQUE real dispara o Contact no GTM) ── */
+    var WA_COMERCIAL = '5517996815322';
+    var modalBox   = overlay.querySelector('.modal-box');
+    var waRedirect = document.createElement('a');
+    waRedirect.id = 'waRedirect'; waRedirect.target = '_blank'; waRedirect.rel = 'noopener';
+    waRedirect.style.display = 'none';
+    document.body.appendChild(waRedirect);
+
+    /* tela de sucesso dentro do modal (fallback caso o navegador bloqueie a aba) */
+    var modalSuccess = document.createElement('div');
+    modalSuccess.className = 'modal-success';
+    modalSuccess.style.display = 'none';
+    modalSuccess.innerHTML =
+      '<div class="modal-success-ic"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#1da851" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>'
+      + '<h3>Tudo certo! Abrimos o WhatsApp pra você.</h3>'
+      + '<p>Se ele não abrir sozinho, é só tocar no botão abaixo.</p>'
+      + '<a class="btn-cta-wpp" id="waFallback" target="_blank" rel="noopener">Falar no WhatsApp agora</a>';
+    if (modalBox) modalBox.appendChild(modalSuccess);
+    var waFallback = modalSuccess.querySelector('#waFallback');
+    var modalHead  = modalBox ? modalBox.querySelector('.modal-head') : null;
+    var modalDisc  = modalBox ? modalBox.querySelector('.modal-disclaimer') : null;
+
+    function showSuccess(url) {
+      if (waFallback) waFallback.href = url;
+      modalForm.style.display = 'none';
+      if (modalHead) modalHead.style.display = 'none';
+      if (modalDisc) modalDisc.style.display = 'none';
+      modalSuccess.style.display = 'block';
+    }
+    function resetSuccess() {
+      modalForm.style.display = '';
+      if (modalHead) modalHead.style.display = '';
+      if (modalDisc) modalDisc.style.display = '';
+      modalSuccess.style.display = 'none';
+    }
+
     function showStep(i) {
       current = Math.max(0, Math.min(i, totalSteps - 1));
       steps.forEach(function(s, idx) { s.classList.toggle('active', idx === current); });
@@ -133,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function openModal(equip) {
       modalForm.reset();
+      resetSuccess();
       document.querySelectorAll('.phone-mask').forEach(function(i){ i.value = ''; });
       if (equipInput) equipInput.value = equip || '';
       if (modalSub) modalSub.textContent = equip ? ('Equipamento de interesse: ' + equip) : DEFAULT_SUB;
@@ -141,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
       overlay.classList.add('open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
+      try { (window.dataLayer = window.dataLayer || []).push({ event: 'form_open' }); } catch (e) {}
     }
     function closeModal() {
       overlay.classList.remove('open');
@@ -251,16 +289,24 @@ document.addEventListener('DOMContentLoaded', function() {
         utm_term:     utms.utm_term
       };
 
-      if (btnSubmit) { btnSubmit.classList.add('loading'); btnSubmit.textContent = 'Enviando...'; }
+      if (btnSubmit) { btnSubmit.classList.add('loading'); btnSubmit.textContent = 'Abrindo o WhatsApp...'; }
 
-      // Guarda nome + equipamento p/ personalizar a mensagem de WhatsApp na página de obrigado
+      // 1) CONVERSÃO — dispara Lead (Pixel + CAPI + GA4 + Ads, deduplicado pelo próprio GTM via Api Event ID)
       try {
-        sessionStorage.setItem('nc_nome', nome);
-        sessionStorage.setItem('nc_equip', equip || '');
-      } catch (e2) {}
+        (window.dataLayer = window.dataLayer || []).push({
+          event: 'lead_form_submit',
+          lead_nome: nome,
+          lead_whatsapp: whatsappE164,   // com 55 -> advanced matching (telefone) do Meta
+          lead_email: '',
+          utm_source: utms.utm_source,
+          utm_medium: utms.utm_medium,
+          utm_campaign: utms.utm_campaign,
+          utm_content: utms.utm_content,
+          utm_term: utms.utm_term
+        });
+      } catch (eDL) {}
 
-      // Envia pro Make com keepalive (a requisição completa mesmo após navegar).
-      // BLINDAGEM: se o Make falhar/estiver fora do ar, o lead NUNCA trava — segue sempre pro WhatsApp.
+      // 2) Envia pro Make com keepalive (completa mesmo depois de abrir o WhatsApp)
       try {
         fetch(WEBHOOK_URL, {
           method: 'POST',
@@ -269,9 +315,19 @@ document.addEventListener('DOMContentLoaded', function() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-      } catch (e3) {}
+      } catch (eFetch) {}
 
-      window.location.href = 'obrigado.html';
+      // 3) Abre o WhatsApp direto via CLIQUE REAL no link (dispara Contact no GTM) + mensagem pré-preenchida
+      var primeiro = (nome.split(' ')[0] || nome);
+      var msg = 'Olá! Sou ' + primeiro + '. Acabei de solicitar uma proposta'
+              + (equip ? (' da ' + equip) : '')
+              + ' no site da New Cycle e gostaria de adiantar o atendimento.';
+      var waUrl = 'https://wa.me/' + WA_COMERCIAL + '?text=' + encodeURIComponent(msg);
+      waRedirect.href = waUrl;
+      waRedirect.click();
+
+      // 4) Confirmação dentro do modal (fallback caso o navegador bloqueie a nova aba)
+      showSuccess(waUrl);
     });
   }
 

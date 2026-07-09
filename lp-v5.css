@@ -221,3 +221,10 @@ body.modal-open { overflow: hidden; }
   .oferta-title { font-size: 21px; }
   .oferta-preco-new { font-size: 26px; }
 }
+
+/* ── Tela de sucesso do modal (WhatsApp direto) ── */
+.modal-success { text-align: center; padding: 6px 4px 2px; animation: stepIn 0.25s ease; }
+.modal-success-ic { width: 74px; height: 74px; margin: 0 auto 18px; background: rgba(37,211,102,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.modal-success h3 { font-family: var(--font-secondary); font-weight: 800; font-size: 21px; color: var(--text-dark); line-height: 1.25; margin-bottom: 8px; }
+.modal-success p { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
+.modal-success .btn-cta-wpp { width: 100%; justify-content: center; }
