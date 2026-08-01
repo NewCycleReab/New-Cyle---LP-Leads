@@ -228,3 +228,9 @@ body.modal-open { overflow: hidden; }
 .modal-success h3 { font-family: var(--font-secondary); font-weight: 800; font-size: 21px; color: var(--text-dark); line-height: 1.25; margin-bottom: 8px; }
 .modal-success p { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
 .modal-success .btn-cta-wpp { width: 100%; justify-content: center; }
+
+/* ── Barra Pro Flex: produto alto e fino, imagem em retrato no mobile ── */
+@media (max-width: 900px) {
+  .lp-barra .hero-split-img,
+  .lp-barra .produto-intro-img { aspect-ratio: 4 / 5; max-width: 360px; }
+}
