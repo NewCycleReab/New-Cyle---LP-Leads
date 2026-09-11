@@ -210,6 +210,7 @@ body.modal-open { overflow: hidden; }
   content: ''; width: 26px; height: 1.5px; background: var(--teal); flex-shrink: 0;
 }
 .oferta-title {
+  text-wrap: balance;
   font-family: var(--font-secondary); font-weight: 800; font-size: 33px;
   line-height: 1.18; color: var(--text-dark); letter-spacing: -0.5px; margin-bottom: 18px;
 }
