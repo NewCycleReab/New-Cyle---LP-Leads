@@ -206,9 +206,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateStep1() {
       var nome  = (modalForm.querySelector('input[name="nome"]')  || {}).value || '';
       var wpp   = (modalForm.querySelector('input[name="whatsapp"]') || {}).value || '';
+      var mail  = (modalForm.querySelector('input[name="email"]') || {}).value || '';
       nome = nome.trim();
-      if (!nome || !wpp) return 'Por favor, preencha seu nome e WhatsApp.';
+      mail = mail.trim();
+      if (!nome || !wpp || !mail) return 'Por favor, preencha seu nome, WhatsApp e e-mail.';
       if (normalizePhoneDigits(wpp).length < 10) return 'Por favor, insira um WhatsApp válido com DDD.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) return 'Por favor, insira um e-mail válido.';
       return '';
     }
     function showError(msg) {
@@ -257,6 +260,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       var nome     = modalForm.querySelector('input[name="nome"]').value.trim();
+      // e-mail normalizado (minusculo e sem espacos): e assim que o Meta faz o advanced matching
+      var emailEl  = modalForm.querySelector('input[name="email"]');
+      var email    = emailEl ? emailEl.value.trim().toLowerCase() : '';
       var whatsappDigits   = normalizePhoneDigits(modalForm.querySelector('input[name="whatsapp"]').value);
       var whatsappFmt      = formatPhone(whatsappDigits);
       var whatsappE164     = '55' + whatsappDigits;
@@ -271,6 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var utms = getUTMs();
       var payload = {
         nome: nome,
+        email: email,
         whatsapp: whatsappFmt,
         whatsapp_e164: whatsappE164,
         perfil: perfil,
@@ -297,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
           event: 'lead_form_submit',
           lead_nome: nome,
           lead_whatsapp: whatsappE164,   // com 55 -> advanced matching (telefone) do Meta
-          lead_email: '',
+          lead_email: email,          // advanced matching (e-mail) do Meta
           utm_source: utms.utm_source,
           utm_medium: utms.utm_medium,
           utm_campaign: utms.utm_campaign,
