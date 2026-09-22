@@ -101,6 +101,13 @@ document.addEventListener('DOMContentLoaded', function() {
   var INVEST_SCORE = { acima_50k:3, de_30_50k:2, de_5_30k:1 };
 
   var PERFIL_SCORE = { dono:2, representante:1, autonomo:0 };
+  // Rotulo literal exigido pelo RD Station. Tem que bater caractere a caractere
+  // com a opcao do formulario, incluindo (a), a barra com espacos e os acentos.
+  var PERFIL_LABEL = {
+    dono:          'Sim, sou dono(a) da clínica',
+    representante: 'Sim, sou representante / gestor(a)',
+    autonomo:      'Não, sou fisioterapeuta autônomo(a)'
+  };
 
   /* ── MODAL multi-etapa ── */
   var WEBHOOK_URL = 'https://hook.us2.make.com/akop9whubtloyou7p5t4b0uwybtapoj0';
@@ -280,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
         email: email,
         whatsapp: whatsappFmt,
         whatsapp_e164: whatsappE164,
-        perfil: perfil,
+        perfil: PERFIL_LABEL[perfil] || perfil,   // rotulo completo, o RD recusa o codigo curto
         momento: PACIENTES_LABEL[pacCode] || pacCode,        // chave legada do Make (agora = nº de pacientes)
         investimento: INVEST_LABEL[invCode] || invCode,       // chave legada do Make (faixa de investimento)
         pacientes: PACIENTES_LABEL[pacCode] || pacCode,
